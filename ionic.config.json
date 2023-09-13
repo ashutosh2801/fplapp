@@ -1,0 +1,7 @@
+{
+  "name": "fplapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
