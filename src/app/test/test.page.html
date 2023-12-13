@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>test</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">test</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-content>
+
+      <!-- <swiper-container autoplay="true" slides-per-view="1" speed="500" loop="true" css-mode="true" pagination="true" >
+        <swiper-slide>Slide 1<br />Slide 1<br />Slide 1<br />Slide 1<br />Slide 1<br /></swiper-slide>
+        <swiper-slide>Slide 2<br />Slide 1<br />Slide 1<br />Slide 1<br />Slide 1<br /></swiper-slide>
+        <swiper-slide>Slide 3<br />Slide 1<br />Slide 1<br />Slide 1<br />Slide 1<br /></swiper-slide>
+      </swiper-container> -->
+
+      <br /><br /><br /><br /><br /><br />
+      <ion-button (click)="setValue()" expand="block"  shape="round">
+        Set Value
+      </ion-button>
+      <ion-button (click)="getValue()" expand="block" shape="round">
+        Get Value
+      </ion-button>
+      <ion-button (click)="removeValue()" expand="block" shape="round">
+        Remove Value
+      </ion-button>
+      <ion-button (click)="clearValue()" expand="block"  shape="round">
+        Clear Value
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

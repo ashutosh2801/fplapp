@@ -1,0 +1,19 @@
+.box {padding: 10px; font-size: 14px;}
+.box label{ display: inline-block; width: 100px; }
+.line { border-bottom: 2px solid #fff;}
+.box1 {padding: 10px; font-size: 14px; text-align: right;}
+.box1 label{ display: inline-block; width: 120px; }
+.col { text-align: center;}
+.content {color: #fff;background-color: #488aff;}
+.login-box {
+    padding: 20px 0 ;
+    background:#488aff;
+    color: #fff;
+    border-radius: 25px;
+    margin: 25px 0;
+    -webkit-box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+}
+.large {
+    font-size: 25px;
+}

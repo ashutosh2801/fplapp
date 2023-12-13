@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">credit_card</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="dashboard_wra">
+    <h2>Update Credit Card</h2>
+    <ion-card class="gray">
+      <ion-card-content class="ion-padding"> 
+        <section class="paynow_wra">
+          <p><b>Accepted Cards Visa, Visa Debit, MasterCard, MasterCard Debit, Prepaid Credit Cards from your Bank or Money Mart.</b> Prepaid Vanilla Cards and American Express Cards will not work on this system.</p>
+        </section>
+      
+        <div class="login-box">
+          <form [formGroup]="registerData" (ngSubmit)="do_credit_card(registerData.value)">
+      
+            <ion-list class="ion-no-padding">
+              <ion-item lines="none">
+                <ion-input class="uppercase" label="Name on Card" label-placement="floating" Codetype="text" value="" placeholder="" name="name_of_card" formControlName="name_of_card" (ionBlur)="logValidationErrors()"></ion-input>
+              </ion-item>
+      
+              <ion-item lines="none">
+                <ion-input label="Card Number" placeholder="0000 0000 0000 0000"
+                [maskito]="cardMask" [maskitoElement]="maskPredicate" label-placement="floating" type="tel" value="{{response.card_number}}" name="card_number" formControlName="card_number"  (ionBlur)="logValidationErrors()" minlength="19" maxlength="20"></ion-input>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.card_number">{{formErrors.card_number}}</div>
+
+              <ion-item lines="none">
+                  <ion-select label="Month" label-placement="floating" name="exp_month" formControlName="exp_month" (ionBlur)="logValidationErrors()">
+                    <ion-select-option *ngFor="let m of months" value="{{m.value}}">{{m.text}}</ion-select-option>
+                  </ion-select>
+                  <ion-select label="Year" label-placement="floating" name="exp_year" formControlName="exp_year" (ionBlur)="logValidationErrors()">
+                    <ion-select-option *ngFor="let y of years" value="{{y.value}}">{{y.text}}</ion-select-option>
+                  </ion-select>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.exp_year">{{formErrors.exp_year}}</div>
+              <div class="validation-errors" *ngIf="formErrors.exp_month">{{formErrors.exp_month}}</div>
+                  
+              <ion-item lines="none">
+                <ion-input label="CVV" label-placement="floating" placeholder="***" type="password" name="cvv_code" formControlName="cvv_code" (ionBlur)="logValidationErrors()"></ion-input>
+                <ion-input label="Postal Code" label-placement="floating" placeholder="A1A2A3" type="text" (ionBlur)="logValidationErrors()" name="postalCode" formControlName="postalCode"></ion-input>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.postalCode">{{formErrors.postalCode}}</div>
+              <div class="validation-errors" *ngIf="formErrors.cvv_code">{{formErrors.cvv_code}}</div>
+      
+              <ion-item lines="none">
+                <ion-button size="default" class="submit-btn" expand="block" type="submit" [disabled]="!registerData.valid">Update</ion-button>
+              </ion-item>
+            </ion-list>
+
+      
+          </form>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <img src="{{cardImg}}" />
+  </div>
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <!-- <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button> -->
+</ion-card>

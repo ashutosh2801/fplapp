@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons> -->
+    <ion-title>Summary</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button color="success" (click)="confirm()" [strong]="true">Confirm</ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <div class="login-box" color="blue">
+    <div class="box"><label>Name</label> : {{response.name}}</div>
+    <div class="box"><label>FPL Number</label> : {{response.account_id}}</div>
+    <div class="box"><label>Address</label> : {{response.address}}</div>
+    <div class="box"><label>Product</label> : {{response.product}}</div>
+    <div class="box"><label>Date</label> : {{response.date}}</div>
+    <div class="line"></div>  
+    <div class="box1">Activation Fee: <label>${{response.act_fee}}</label></div>
+    <div class="box1" *ngIf="response.topup && response.topup!=='0.00'">Top Up: <label>${{response.topup}}</label></div>
+    <div class="box1">Prorated 1st Month: <label>${{response.prorated}}</label></div> 
+    <div class="box1" *ngIf="response.discount && response.discount_amt">Discount ({{response.discount_amt}}%): <label>${{response.discount}}</label></div>      
+    <div class="line"></div>  
+    <div class="box1">Sub Total: <label>${{response.sub_total}}</label></div>
+    <div class="box1">Tax({{response.province}}%): <label>${{response.tax}}</label></div>      
+    <div class="line"></div>  
+    <div class="box1 large">Total: <label>${{response.tot}}</label></div>
+  </div>  
+    <ion-row>
+        <ion-col class="signup-col ion-text-center">
+            <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+            <ion-button color="success" (click)="confirm()">Confirm</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>

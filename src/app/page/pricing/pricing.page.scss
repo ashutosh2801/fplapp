@@ -1,0 +1,38 @@
+.toolbar-background {background: #fff;border-color: transparent;}
+.swiper-pagination-bullets { top: 0; bottom: 0;}
+.slide-zoom {height: 100%;}
+.slide-title {margin-top: 2.8rem;}
+.slide-image {max-height: 50%;max-width: 60%;margin: 18px 0;}
+b { font-weight: 500;}
+p {padding: 0 40px;font-size: 14px;line-height: 1.5;color: #60646B;
+b {  color: #000000;  }
+}
+
+.price_wra2{ border-radius:6px; overflow:hidden; text-align:center; background:#03433b;border: 4px solid #FFCC00; margin:20px 15px;box-shadow: 0 3px 12px #769603;}
+.price_wra2 i{ color:#9CC505; margin-bottom:10px;}
+.title_head2 {font-family: 'sinkin_sans700_bold';font-size: 16px;padding:5px 0;margin-bottom:0px;background: #ffcc00;color: #fff;}
+.title_box{ background:#fff; color:#333; font-size:14px; font-weight:600;padding-bottom:8px;}
+.title_box i{ font-size:30px;}
+.title_box span{ font-size:16px;padding-top:8px;display: block;font-family: 'sinkin_sans600_semibold';}
+.price_box_title_txt{ padding:5px 10px; background: #fff; color:#a41111; font-size:13px; line-height:24px; font-weight:600; border-bottom:4px solid #FFCC00; border-top:4px solid #FFCC00;}
+.price_box_title_txt a, .price_box_title_txt a:focus{ background:#589900; color:#fff; padding:5px 30px; margin:5px 0; display:inline-block; border-radius:4px;}
+.price_box_title_txt a:hover{ background:#019ec5; color:#fff;}
+.price_box_txt{ padding:15px 10px; color:#fff; font-size:14px; line-height:22px;}
+.price_box_btn2{ padding:10px 10px 20px; }
+.price_box_btn2 a, .price_box_btn2 a:focus{ background:#ffcc00; color:#fff; font-size:16px; font-weight:600; display:inline-block; padding:8px 20px; border-radius:4px;}
+.price_box_txt strong{ text-transform:uppercase; text-decoration:underline;}
+.price_box_txt em{ font-style:normal; text-decoration:line-through;}
+.green2{ color:#c9ff01;}
+
+.p_list {margin: 0 0 10px 0;padding: 0 0 25px 0;list-style: none;text-align: center;font-size: 12px;border-bottom: 1px solid #D7D7D7;}
+.p_list li {padding: 12px 0;border-bottom: 1px dashed #ccc;list-style: none;}
+.p_list li:last-child {border: none;}
+
+.segment-button { margin: 0px; padding: 0;}
+.segment2 { padding: 0 10px 10px 10px; }
+ion-segment-button {
+    letter-spacing: normal;
+    text-wrap:wrap;
+}
+
+.submit-btn { background: #589900; border-radius: 30px !important; border: 1px solid #ffffff; }

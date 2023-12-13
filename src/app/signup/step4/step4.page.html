@@ -1,0 +1,164 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <h2 class="ion-text-center" size="default">FedPhoneLine Number Registration</h2>
+   
+    <div class="login-box " color="light">
+
+      <h2 class="ion-text-center">Step 4 of 4 - Enter Payment Info</h2>
+
+        <form [formGroup]="registerData" (ngSubmit)="confirm(registerData.value)">    
+        <ion-list>
+        
+        <ion-item lines="none">
+          <ion-input class="uppercase" label="Customer Name" label-placement="floating" placeholder="John Due" type="text" name="name_of_card" formControlName="name_of_card" (ionBlur)="logValidationErrors()"></ion-input>
+        </ion-item>
+        <div class="validation-errors" *ngIf="formErrors.name_of_card">{{formErrors.name_of_card}}</div>
+    
+    
+        <ion-item lines="none">
+            <ion-input label="Card Number" label-placement="floating" placeholder="0000 0000 0000 0000" type="tel" name="card_number" formControlName="card_number" (ionBlur)="logValidationErrors()" minlength="19" 
+            [maskito]="cardMask" [maskitoElement]="maskPredicate" maxlength="20"></ion-input>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.card_number">{{formErrors.card_number}}</div>
+        
+          <ion-row>
+            <ion-col col-6>
+              <ion-item lines="none">
+                  <ion-select label="Month" label-placement="floating"  name="exp_month" formControlName="exp_month" (ionBlur)="logValidationErrors()">
+                    <ion-select-option *ngFor="let m of months" value="{{m.value}}">{{m.text}}</ion-select-option>
+                  </ion-select>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.exp_month">{{formErrors.exp_month}}</div>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item lines="none">
+                  <ion-select label="Year" label-placement="floating" name="exp_year" formControlName="exp_year" (ionBlur)="logValidationErrors()">
+                    <ion-select-option *ngFor="let y of years" value="{{y.value}}">{{y.text}}</ion-select-option>
+                  </ion-select>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.exp_year">{{formErrors.exp_year}}</div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-6>
+              <ion-item  lines="none">
+                <ion-input label="CVV" label-placement="floating" placeholder="***" type="password" name="cvv_code" formControlName="cvv_code" (ionBlur)="logValidationErrors()"  minlength="3" maxlength="3"></ion-input>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.cvv_code">{{formErrors.cvv_code}}</div>
+            </ion-col>
+            <ion-col col-6>
+                <ion-item  lines="none">
+                    <ion-input label="Postal Code" label-placement="floating" placeholder="A1A2A3" type="text" (ionBlur)="logValidationErrors()" name="postalCode" formControlName="postal_code"  minlength="6" maxlength="6"></ion-input>
+                </ion-item>
+                <div class="validation-errors" *ngIf="formErrors.postalCode">{{formErrors.postalCode}}</div> 
+            </ion-col>
+        </ion-row>
+        
+        <div style="display: none;">
+          <ion-item hidden lines="none"><ion-input value="{{user_id}}" type="text" name="user_id" formControlName="user_id"></ion-input></ion-item>
+          <ion-item hidden lines="none"><ion-input value="{{calltype}}" type="text" name="calltype" formControlName="calltype"></ion-input></ion-item>
+        </div>
+
+        <div class="padding" *ngIf="calltype==='Collect Call'">
+          <div class="padding">
+            <h3>How much will you deposite into your TopUp Account?</h3>
+          </div>
+          <ion-item class="ion-item" lines="none">
+            <ion-select lable="Top Up" label-placement="floating" (ionChange)="optionsFn($event);" value="{{default_topup}}" placeholder="Select Top Up">
+              <ion-select-option *ngFor="let item of topup" value="{{item.amount}}">${{item.amount}} + Tax</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="padding">
+            <h3 color="danger" class="uppercase">NOTE: Your TopUp Account is where you add funds to pay for the collect calls you receive.</h3>
+          </div>
+        </div>
+
+        <div class="padding">
+          <h3>One-Time Administration/Setup Fee</h3>
+          <p class="txt6">A One-Time Administration/Setup fee will be added to your first bill</p>
+          <p class="margin-top">Administration/Setup Fee</p>
+        </div>
+        <ion-item class="ion-item response-button" lines="none">
+              <ion-input type="text" name="activation_fee" class="form-control" value="${{activation_fee}}" [readonly]="true"></ion-input>
+        </ion-item>
+        <div class="padding">
+          <p class="txt7">*This include taxes. Taxes will be added after we receive your address information as taxes vary depending on the province you will be receiving service in.*</p>                        
+        </div>
+
+        <div class="padding">
+          <h3>Your Monthly Bill</h3>
+          <p class="txt6">You are billed on the <strong>1st of each month</strong>. If you pay with a credit card the monthly fee will be deducted from your credit card automatically on the <strong>1st of the month</strong>.</p>
+          <p><a href="https://fedphoneline.com/en/how-billing-works" target="_blank">Click on How Billing Works for more details</a>
+          </p>
+          <p>Monthly Plan</p>
+        </div>
+        <ion-item class="ion-item response-button" lines="none">
+              <ion-input type="text" name="monthly_fee" class="form-control" value="${{monthly_fee}} + Tax" [readonly]="true"></ion-input>                      
+        </ion-item>
+        
+        <div class="padding">
+          <p class="txt7">*This does not include taxes. Taxes will be added after we receive your address information as taxes vary depending on the province you will be receiving service in.*</p>  
+        </div>
+        
+          <ion-item class="ion-item response-button" lines="none" class="ion-wrap">
+
+            <ion-checkbox color="secondary" name="acknowledge" formControlName="acknowledge" (ionChange)="logValidationErrors()" labelPlacement="end"><div class="ion-text-wrap">I acknowledge I have read the Details and FAQ's page and understand that this service cannot be used to call emergency service and 911.</div></ion-checkbox>
+
+            <!-- <ion-checkbox slot="start" color="secondary" name="acknowledge" formControlName="acknowledge" (ionChange)="logValidationErrors()"></ion-checkbox>
+            <ion-label class="ion-text-wrap">I acknowledge I have read the Details and FAQ's page and understand that this service cannot be used to call emergency service and 911.</ion-label> -->
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.acknowledge">{{formErrors.acknowledge}}</div> 
+    
+          <ion-item class="ion-item  response-button" lines="none">
+            <ion-checkbox color="secondary" name="terms" formControlName="terms" (ionChange)="logValidationErrors()" labelPlacement="end"></ion-checkbox>
+            <ion-label class="ion-text-wrap" style="padding-left: 15px;">
+              I agree to the following <a (click)="redirect('https://fedphoneline.com/en/page-terms-and-conditions')">Terms and Conditions</a> and <a (click)="redirect('https://fedphoneline.com/en/page-payment')">Payment Conditions</a>.
+            </ion-label>
+            <!-- <ion-checkbox label="Terms" slot="start" color="secondary" name="terms" formControlName="terms" (ionChange)="logValidationErrors()"></ion-checkbox>
+            <ion-label class="ion-text-wrap">I agree to the following <a herf="https://fedphoneline.com/en/page-terms-and-conditions">Terms and Conditions</a> and <a href="https://fedphoneline.com/en/page-payment">Payment Conditions</a>.</ion-label> -->
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.terms">{{formErrors.terms}}</div> 
+    
+          <ion-item class="response-button" lines="none">
+            <ion-checkbox color="secondary" name="privacy" formControlName="privacy" (ionChange)="logValidationErrors()" labelPlacement="start"></ion-checkbox>
+            <ion-label class="ion-text-wrap" style="padding-left: 15px;">I have read and understand the FedPhoneLine <a (click)="redirect('https://fedphoneline.com/en/page-refund-policy')">Refund Policy</a>.</ion-label>
+            <!-- <ion-checkbox slot="start" color="secondary" name="privacy" formControlName="privacy" (ionChange)="logValidationErrors()"></ion-checkbox>
+            <ion-label class="ion-text-wrap">I have read and understand the FedPhoneLine <a herf="https://fedphoneline.com/en/page-refund-policy">Refund Policy</a>.</ion-label> -->
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.privacy">{{formErrors.privacy}}</div> 
+    
+          <ion-item class="response-button" lines="none">
+            <ion-checkbox [checked]="checkMe" color="secondary" name="balance_term" formControlName="balance_term" (ionChange)="logValidationErrors()" labelPlacement="end"><div class="ion-text-wrap">I provide consent to FedPhoneLine to automatically charge this card on the 1st of each month for the monthly fee and topup amount (if applicable).</div></ion-checkbox>
+              <!-- <ion-checkbox slot="start" color="secondary" name="balance_term" formControlName="balance_term" checked (ionChange)="logValidationErrors()"></ion-checkbox>
+              <ion-label class="ion-text-wrap">I provide consent to FedPhoneLine to automatically charge this card on the 1st of each month for the monthly fee and topup amount (if applicable).</ion-label> -->
+          </ion-item> 
+          <div class="validation-errors" *ngIf="formErrors.balance_term">{{formErrors.balance_term}}</div> 
+    
+          <ion-row>
+            <ion-col class="signup-col ion-text-center">
+              <ion-button color="medium" type="button" (click)="back()"><ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon> PREVIOUS</ion-button>
+              <ion-button color="success" type="submit" [disabled]="!registerData.valid"><ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon> SUBMIT</ion-button>
+
+              <!-- [disabled]="!registerData.valid" -->
+    
+            </ion-col>
+          </ion-row>
+    
+          
+        
+        </ion-list>
+        </form>
+    </div>
+
+</ion-content>

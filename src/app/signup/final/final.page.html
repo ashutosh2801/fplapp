@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div class="login-box green" *ngIf="response.status==='success'; else elseBlock">
+    
+    <h3>PAYMENT SUCCESSFUL</h3>
+    <h3>Your FedPhoneLine is: {{response.account_id}}</h3>
+        
+    <ion-button (click)="login()">Go To Login Page</ion-button>
+
+    <p>Your payment has been approved.</p>
+    <p>You have been sent an email with your password (check your junk mail or SPAM folder).</p>
+    <p>Please read this email carefully, as it contains important information about how your FedPhoneLine Number works.</p>
+    <p> </p>
+    <p>You must provide this FedPhoneLine number to your incarcerated friend/loved one (either in a letter, during a visit, etc.). They will call the FedPhoneLine number and the FedPhoneLine will redirect the call to the phone number entered upon registration.</p>
+    <ion-button (click)="login()">Go To Login Page</ion-button>
+  </div>  
+  
+  <ng-template #elseBlock>
+    <div class="login-box red">
+    
+      <h3>PAYMENT DECLINED</h3>
+      <h3>Your FedPhoneLine is: {{response.account_id}}</h3>
+            
+      <ion-button (click)="login()">Go To Login Page</ion-button>
+  
+      <p>Your payment has been declined.</p>
+      <p>Even though the payment was not successful, you have still been sent an email with your password (check your junk mail or SPAM folder).</p>
+      <p>You must log into your account and complete the registration payment by selecting the “Pay Now” button and choosing the “My Balance” option from the dropdown menu.</p>
+      <p> </p>
+      <p>Please read the registration carefully, as it contains im- portant information about how your FedPhoneLine Number works.</p>
+      <p>Once you have made the payment and your account is active. You must provide this FedPhoneLine number to your incarcerated friend/loved one (either in a letter, during a visit, etc.). They will call the FedPhoneLine number and the FedPhoneLine will redirect the call to the phone number entered upon registration.</p>
+      <ion-button (click)="login()">Go To Login Page</ion-button>
+    </div>  
+  </ng-template>
+</ion-content>

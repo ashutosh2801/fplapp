@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <img width="100%" src="https://fedphoneline.com{{item.src}}" /><br />
+    <ion-card-content>
+        <ion-card-title>{{item.title}}</ion-card-title>
+        <p>Visits: {{ item.phone }}</p>
+        <p *ngFor="let address of item.address">{{ address }}</p>
+    </ion-card-content>
+</ion-card>
+<ion-card>
+    <ion-card-content>
+            <h1>Description</h1>
+            <div [innerHTML]="item.description"></div>
+    </ion-card-content>
+</ion-card>
+<ion-card>
+  <ion-card-content>
+<h4>Regular Visiting Hours?</h4>
+<p [innerHTML]="item.visiting_hours"></p>
+<div *ngIf="item.facility">
+    <h4 [innerHTML]="item.facility_desc"></h4>
+    <ion-button type="button" color="secondary" [routerLink]="['/signup/step1']">SIGN UP FOR A PLAN TODAY</ion-button>
+</div>
+</ion-card-content>
+</ion-card>
+
+</ion-content>

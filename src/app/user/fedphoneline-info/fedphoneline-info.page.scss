@@ -1,0 +1,59 @@
+ion-item {
+    display: block;
+    columns: 1;
+    margin-bottom: 10px;
+}
+ion-input, ion-select {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    --padding-start:15px
+}
+ion-item:not(.item-label):not(.item-has-modern-input) .sc-ion-input-md-h {
+    --padding-start: 20px !important;
+}
+.sc-ion-input-md-h:not(.legacy-input) {
+    min-height: 50px;
+}
+ion-radio {
+    --border-radius: 4px;
+    --inner-border-radius: 4px;
+  
+    --color: #ddd;
+    --color-checked: #6815ec;
+}
+
+ion-radio.ios::part(container) {
+    width: 20px;
+    height: 20px;
+  
+    border: 2px solid #ddd;
+    border-radius: 4px;
+}
+
+.radio-checked.ios::part(container) {
+    border-color: #6815ec;
+}
+
+.dashboard_wra {
+    text-align: center;
+}
+.dashboard_wra  h3 {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+ion-card-content {
+    padding: 0;
+}
+:host(.in-item:not(.legacy-radio)) .label-text-wrapper,
+label-text-wrapper {
+    overflow: unset !important;
+}
+.validation-errors {
+    color: #f00;
+    padding-left: 20px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    text-align: left;
+}

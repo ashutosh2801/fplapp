@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  
+
+  <div class="dashboard_wra">
+    <div>
+      <h2>FedPhoneLine Order History</h2>
+    </div>
+    
+            
+<br />
+        <ngx-datatable class="material tablestyle bootstrap striped" 
+          [ngClass]="'tablestyle'" 
+          [rows]="data" 
+          [rowHeight]="50"
+          [columnMode]="ColumnMode.force"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [limit]="10"
+          [selected]="selected"
+          [selectionType]="SelectionType.multi"
+          (select)="onSelect($event)"
+          
+          [scrollbarH]="true"
+          >
+      
+          <ngx-datatable-column>
+            <ng-template ngx-datatable-header-template>
+              <span>Order ID</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.order_id}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Total"></ngx-datatable-column>      
+          <ngx-datatable-column name="Createdon"></ngx-datatable-column>
+          <ngx-datatable-column name="Status"></ngx-datatable-column>
+          <ngx-datatable-column name="Type"></ngx-datatable-column>
+          
+        </ngx-datatable>
+
+       
+  </div>
+</ion-content>
+
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

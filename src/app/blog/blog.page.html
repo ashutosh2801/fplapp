@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">blog</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="login-content">    
+    <ion-searchbar placeholder="Search..." (ionInput)="getItems($event)" (ionClear)="getItems($event)"></ion-searchbar>
+    
+    <section class="login_wra">
+      <h2>Blog</h2>
+    </section>
+    
+    <ion-card *ngFor="let item of Posts">
+
+      <ion-card-header text-wrap><h2 [routerLink]="['/', 'blog', item.post_id]">{{item.post_title}}</h2></ion-card-header>
+    
+      <img *ngIf="item.post_src" src="{{item.post_src}}">
+    
+      <ion-card-content>
+        <p [innerHtml]="item.post_content"></p>        
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col> 
+          <ion-button small expand="full" fill="clear" [routerLink]="['/', 'blog', item.post_id]" color="secondary">View more</ion-button>
+        </ion-col>
+        <ion-col align-self-center text-center>
+          <ion-button small expand="full" fill="clear">
+            {{item.post_date_ago}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    
+    </ion-card>
+
+    <ion-infinite-scroll threshold="120px" (ionInfinite)="infiniteLoad($event)" *ngIf="Posts!==null">
+      <ion-infinite-scroll-content loadingText="Loading More">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

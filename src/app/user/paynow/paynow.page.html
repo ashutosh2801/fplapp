@@ -1,0 +1,110 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Pay Now</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="dashboard_wra">
+    <h2>Pay Now</h2>
+    <h3>Your next payment is due: <br /><b>{{response.next_month}}</b></h3>
+    <p>Some people like to pay for more than one month at a time. Select the “Number of Months” from the dropdown menu to pay your bill upto 4 months in advance.</p>
+  
+    <ion-card class="gray">
+      <ion-card-content>
+        <div class="login-box">
+          <form [formGroup]="registerData" (ngSubmit)="do_payment(registerData.value)">
+
+            <!-- <ion-header>
+              <ion-toolbar>
+                <ion-title>Payment Method</ion-title>
+              </ion-toolbar>
+            </ion-header> -->
+      
+            <section class="login_wra">
+              <h3>Payment Method</h3>
+            </section>
+
+            
+      
+            <ion-list> 
+              <ion-item class="ion-wrap">
+              <ion-radio-group  class="ion-wrap" value="CCard" name="transaction_type" formControlName="transaction_type" (ionChange)="logValidationErrors()">
+                <ion-radio class="ion-wrap" value="CCard" slot="end">Credit Card/Visa Debit/MasterCard Debit</ion-radio>
+              </ion-radio-group>
+            </ion-item>  
+              <div>Note: GENERIC PREPAID CREDIT CARDS ARE NOT ACCEPTED. ONLY PREPAID MONEY MART CARDS ARE ACCEPTED</div>
+            </ion-list>
+      
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Amount owing: ${{ my_balance2 | number : '.2-2'}}</ion-title>
+              </ion-toolbar>
+            </ion-header><br />
+            <img src="assets/visa-master.jpg" />
+      
+            <ion-list>
+              <ion-item lines="none">
+                <ion-input label="Card Number" label-placement="floating" fill="none" type="text" value="{{card_number}}" minlength="16" maxlength="20" readonly="true" placeholder="Card Number" name="card_number" required></ion-input>
+              </ion-item>
+      
+              <ion-button full small color="secondary" type="button" (click)="add_update()">Add/Update Card Detail</ion-button>
+      
+              <!-- <ion-item lines="none" class="ion-text-center">
+                <h3 >Amount Owing:</h3>
+              </ion-item> -->
+
+              <section class="login_wra">
+                <h3>Amount Owing:</h3>
+              </section>
+      
+              <ion-item lines="none">
+                <ion-select label="Amount Owing" lable-placement="floating" (ionChange)="change_month($event)" name="num" formControlName="num" (ionChange)="logValidationErrors()">
+                    <ion-select-option value="" disabled="true" selected>Select</ion-select-option>
+                    <ion-select-option value="1" disabled ="{{isEnabled}}">My Balance</ion-select-option>
+                    <ion-select-option value="2">My Balance + 1 Month</ion-select-option>
+                    <ion-select-option value="3">My Balance + 2 Month</ion-select-option>
+                    <ion-select-option value="4">My Balance + 3 Month</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+      
+            <ion-row>
+              <ion-col class="signup-col">
+                <ion-button class="submit-btn" full type="submit" [disabled]="!registerData.valid">PAY NOW</ion-button>
+              </ion-col>
+            </ion-row>
+      
+          </form>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" color="success" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

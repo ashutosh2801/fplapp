@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+  <div class="dashboard_wra">
+    <h2>FedPhoneLine Contact Info</h2>
+
+    <ion-card class="gray">
+      <ion-card-content> 
+        <form [formGroup]="registerData" (ngSubmit)="do_payment(registerData.value)">
+          
+          <section class="login_wra">
+            <h3>Edit Contact Info</h3>
+            <p>Important: Address listed MUST match credit card billing address.</p>
+          </section>
+          
+          <ion-list > 
+            <p style="text-align: left; font-weight: 600;padding-left: 15px;">Text Messaging</p>
+            <ion-item lines="none">   
+              <ion-radio-group label="Text Messaging" value="{{model.message}}" name="message" formControlName="message" (ionChange)="logValidationErrors()">
+                  <ion-radio slot="start" value="1" aria-label="Enable" label-placement="end">Enable</ion-radio>
+                  <ion-radio slot="end" style="padding-left: 15px;" value="0" class="ion-nowrap" aria-label="Disable" label-placement="end">Disable</ion-radio>
+              </ion-radio-group>
+            </ion-item> 
+
+            <ion-item lines="none">  
+              <ion-input label="Email" label-placement="floating" fill="none" type="text" value="{{model.email}}" placeholder="Email" name="email" formControlName="email" (ionChange)="logValidationErrors()"></ion-input>          
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.email">{{formErrors.email}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="First name" label-placement="floating" fill="none"  type="text" value="{{model.first_name}}" placeholder="First name" name="first_name" formControlName="first_name" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.first_name">{{formErrors.first_name}}</div>
+            
+            <ion-item lines="none"> 
+              <ion-input label="Last name" label-placement="floating" type="text" value="{{model.last_name}}" placeholder="Last name" name="last_name" formControlName="last_name" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.last_name">{{formErrors.last_name}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="House number" label-placement="floating" type="text" value="{{detail.house_number}}" placeholder="House number" name="house_number" formControlName="house_number" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.house_number">{{formErrors.house_number}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="Street name" label-placement="floating" type="text" value="{{detail.street_name}}" placeholder="Street name" name="street_name" formControlName="street_name" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.street_name">{{formErrors.street_name}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-select label="Street Suffix" label-placement="floating" value="{{detail.street_suffix}}" name="street_suffix" formControlName="street_suffix" (ionBlur)="logValidationErrors()">
+                <ion-select-option *ngFor="let item of suffix" value="{{item.id}}">{{item.name}}</ion-select-option>
+              </ion-select>  
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.street_suffix">{{formErrors.street_suffix}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="Unit apt." label-placement="floating" type="text" value="{{detail.unit_apt}}" placeholder="Unit_apt" name="unit_apt" formControlName="unit_apt" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.unit_apt">{{formErrors.unit_apt}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-select label="Province" label-placement="floating" name="province" formControlName="province" (ionBlur)="logValidationErrors()">
+                <ion-select-option *ngFor="let item of provinces" value="{{item.id}}">{{item.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.province">{{formErrors.province}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="City" label-placement="floating" type="text" value="{{detail.city}}" placeholder="City" name="city" formControlName="city" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.city">{{formErrors.city}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="Zip Code/Postal Code" label-placement="floating" type="text" value="{{detail.zipcode}}" placeholder="Zipcode" name="zipcode" formControlName="zipcode" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.zipcode">{{formErrors.zipcode}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="Telephone" label-placement="floating" type="text" value="{{detail.telephone}}" placeholder="Telephone" name="telephone" formControlName="telephone" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.telephone">{{formErrors.telephone}}</div>
+    
+            <ion-item lines="none"> 
+              <ion-input label="Number to Text Me" label-placement="floating" type="text" value="{{detail.telephone2}}" placeholder="Number to Text Me" name="telephone2" formControlName="telephone2" (ionChange)="logValidationErrors()"></ion-input>    
+            </ion-item>
+            <div class="validation-errors" *ngIf="formErrors.telephone2">{{formErrors.telephone2}}</div>
+          </ion-list>
+          
+          <ion-row>
+            <ion-col class="signup-col">
+              <ion-button class="submit-btn" full type="submit" [disabled]="!registerData.valid">Update</ion-button>
+            </ion-col>
+          </ion-row>
+          <!-- [disabled]="!registerData.valid" -->
+          
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

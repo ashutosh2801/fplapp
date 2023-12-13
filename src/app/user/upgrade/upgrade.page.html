@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Upgrade Call Package</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="dashboard_wra">
+    <h2>Upgrade Call Package</h2>
+    <ion-card class="gray">
+      <ion-card-content class="ion-no-padding">
+        <section class="upgrade_wra">
+          <p>Users with Collect Call phone numbers can only switch to a different Collect Calling package.</p>
+          <p>Users with Calling Card phone numbers can only switch to a different Calling Card package.</p>
+          <p>Accounts are switched anywhere between the 25th of the month and the last day of the month.</p>    
+        </section>
+        
+        <div class="login-box">
+          <form [formGroup]="registerData" (ngSubmit)="do_upgrade(registerData.value)">
+            <ion-list>
+              <ion-item lines="none">
+                <ion-select label="Package Required ({{packagelabel}})" label-placement="floating" fill="none" name="package_cat" formControlName="package_cat" (ionChange)="loadPackage()" (ionBlur)="logValidationErrors()">
+                    <ion-select-option value="" selected="selected" disabled="true">Select</ion-select-option>  
+                    <ion-select-option *ngFor="let item of packagecats" value="{{item.key}}" text-wrap>{{item.value}}</ion-select-option>
+                </ion-select>  
+              </ion-item>
+      
+              <ion-item lines="none">
+                <ion-select label="FedPhoneLine Calling Package" label-placement="floating" fill="none" formControlName="package" (ionBlur)="logValidationErrors()">
+                  <ion-select-option value="" disabled="true" selected="selected">Select</ion-select-option>
+                  <ion-select-option disabled="true">BASIC</ion-select-option>
+                  <ion-select-option *ngFor="let item of basic" value="{{item.id}}" text-wrap>{{item.name}}</ion-select-option>
+                  <ion-select-option disabled="true">PREMIUM</ion-select-option>
+                  <ion-select-option *ngFor="let item of premium" value="{{item.id}}" text-wrap>{{item.name}}</ion-select-option>
+                </ion-select>  
+              </ion-item>
+              <ion-item lines="none">
+                <ion-button size="default" class="submit-btn" full type="submit" [disabled]="!registerData.valid">Submit</ion-button>
+              </ion-item>
+            </ion-list>
+            
+          </form>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

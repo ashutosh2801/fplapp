@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <section class="login_wra">
+    <h2>Forgot Password</h2>
+    <div class="login-box" color="light">
+    <form [formGroup]="registerData" (ngSubmit)="submitForm(registerData.value)">
+        <ion-list [inset]="true" class="ion-no-margin">
+
+          <ion-item lines="none">
+            <ion-input type="number" label="FedPhoneLine Number or Username" label-placement="floating" fill="none" placeholder="Ex: 16134173333" maxlength="11"  formControlName="account_id" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" *ngIf="formErrors.account_id">
+            <div class="validation-errors">{{formErrors.account_id}}</div>
+          </div>
+
+          <ion-item lines="none">
+            <ion-button type="submit" size="default" class="submit-btn" full [disabled]="!registerData.valid"><ion-icon slot="icon-only" name="help"></ion-icon> Forgot Password?</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <p>Enter your FedPhoneLine number and select the FORGOT PASSWORD button. A confirmation link will be sent to your email address. Please check your spam/junk mail, sometimes your email may end up in the spam folder.</p>
+          </ion-item>
+        
+    
+        </ion-list>              
+    </form>
+
+    </div>
+  </section>
+
+  <!-- <ion-button expand="block" size="default" class="register-btn" block clear [routerLink]="['/login']">Login</ion-button> -->
+
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="dashboard_wra">
+    <h2>Top Up</h2>
+
+    <ion-card class="gray">
+      <ion-card-content>
+        <form [formGroup]="registerData" (ngSubmit)="do_topup(registerData.value)">
+
+          <section class="login_wra">
+            <h3>Payment Method</h3>
+          </section>
+    
+          <ion-list>
+            <!-- <ion-item class="response-radio" name="transaction_type" formControlName="transaction_type" (ionChange)="logValidationErrors()">
+              <ion-radio-group value="CCard">
+                <ion-radio selected value="CCard">Credit Card/Visa Debit/MasterCard Debit</ion-radio>
+              </ion-radio-group>
+            </ion-item> -->
+              
+            <div>Note: GENERIC PREPAID CREDIT CARDS ARE NOT ACCEPTED. ONLY PREPAID MONEY MART CARDS ARE ACCEPTED</div>
+          </ion-list>   
+    
+    
+          <ion-list>
+            <ion-item lines="none">
+              <ion-input label="Card Number" label-placement="floating" fill="none" type="text" value="{{card_number}}" minlength="16" maxlength="20" readonly="true" placeholder="Card Number" name="card_number" required></ion-input>
+            </ion-item>
+            <ion-button full small color="secondary" (click)="add_update()" type="button">Add/Update Card Detail</ion-button>
+    
+            <ion-list>
+              <section class="login_wra">
+                <h3>Add funds to your Top Up Account.</h3>
+              </section>
+    
+              <ion-row>
+                <ion-col *ngIf="topup">
+                  <ion-select name="topup_amount" formControlName="topup_amount" lable="Top Up" label-placement="floating" value="20" placeholder="Select Top Up">
+                    <ion-select-option *ngFor="let item of topup" value="{{item.amount}}">${{item.amount}} + Tax</ion-select-option>
+                  </ion-select>
+                </ion-col>
+              </ion-row>
+            </ion-list>
+          </ion-list>
+    
+          <ion-row>
+            <ion-col class="signup-col">
+              <ion-button class="submit-btn" full type="submit" [disabled]="!registerData.valid">ADD FUNDS</ion-button>
+            </ion-col>
+          </ion-row>
+    
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <!-- <ion-button color="success" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button> -->
+</ion-card>

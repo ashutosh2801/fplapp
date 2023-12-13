@@ -1,0 +1,130 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <h2 class="ion-text-center" size="default">FedPhoneLine Number Registration</h2>
+
+  <div class="login-box " color="light">
+
+    <h2 class="ion-text-center">Step 1 of 4 - Enter Your Info</h2>
+
+    <form [formGroup]="registerData" (ngSubmit)="register(registerData.value)" novalidate>
+        <ion-list class="item-background-color no-padding">
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="text" label="Create Username" label-placement="floating" fill="none" placeholder="Between 6 - 16 characters" formControlName="username" (ionBlur)="logValidationErrors()" minlength="6" maxlength="16"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.username">
+            <div class="validation-errors">{{formErrors.username}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="text" label="Do you have a Referral Code? (Optional)" label-placement="floating" fill="none" placeholder="Ex: A15SE56EN" formControlName="ref_code"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input class="capitalize" type="text" label="First Name" label-placement="floating" fill="none" placeholder="Ex: John" formControlName="first_name" autocapitalize='on' (ionBlur)="logValidationErrors()" minlength="3"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.first_name">
+            <div class="validation-errors">{{formErrors.first_name}}</div>
+          </div>
+          
+          <ion-item lines="none" class="item-background-color">
+            <ion-input class="capitalize" type="text" label="Last Name" label-placement="floating" fill="none" placeholder="Ex: Due" formControlName="last_name" autocapitalize="on" (ionBlur)="logValidationErrors()" minlength="3"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.last_name">
+            <div class="validation-errors">{{formErrors.last_name}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="email" label="Email" label-placement="floating" fill="none" placeholder="Ex: johndue@gmail.com" formControlName="email" (keyup)="email_func($event)" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.email">
+            <div class="validation-errors">{{formErrors.email}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="email" label="Confirm Email" label-placement="floating" fill="none" placeholder="Ex: johndue@gmail.com" formControlName="confirm_email" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.confirm_email">
+            <div class="validation-errors">{{formErrors.confirm_email}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="tel" label="Account Holder Phone Number" label-placement="floating" fill="none" placeholder="+1 (xxx)-xxx-xxxx" formControlName="telephone" (ionBlur)="logValidationErrors()" minlength="17" maxlength="17" (keyup)="telephone_func($event)" [maskito]="phoneMask"
+            [maskitoElement]="maskPredicate"></ion-input>
+            
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.telephone">
+            <div class="validation-errors">{{formErrors.telephone}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-select formControlName="province" (ionBlur)="logValidationErrors()" label-placement="floating" fill="none" label="Account Holder Province">
+              <ion-select-option value="60">Alberta</ion-select-option>
+              <ion-select-option value="61">British Columbia</ion-select-option>
+              <ion-select-option value="62">Manitoba</ion-select-option>
+              <ion-select-option value="63">New Brunswick</ion-select-option>
+              <ion-select-option value="64">Newfoundland</ion-select-option>
+              <ion-select-option value="66">Nova Scotia</ion-select-option>
+              <ion-select-option value="68">Ontario</ion-select-option>
+              <ion-select-option value="69">Prince Edward Island</ion-select-option>
+              <ion-select-option value="70">Quebec</ion-select-option>
+              <ion-select-option value="71">Saskatchewan</ion-select-option>
+          </ion-select>
+
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.province">
+            <div class="validation-errors">{{formErrors.province}}</div>
+          </div>
+
+
+
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-select label-placement="floating" fill="none" label="Billing reminder by" formControlName="reminder" (ionBlur)="logValidationErrors()" (ionChange)="billing_reminder_func($event)">
+              <ion-select-option selected="selected" disabled="true" value="">Billing reminder by</ion-select-option>
+              <ion-select-option value="1">Text and Email</ion-select-option>
+              <ion-select-option value="2">Email Only</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item  lines="none" class="item-background-color" *ngIf="phone_reminder===1">
+            <ion-input 
+            [maskito]="phoneMask"
+            [maskitoElement]="maskPredicate" 
+            [value]="telephone2" type="tel" label="Number to Text Me:" label-placement="floating" fill="none" name="telephone2" formControlName="telephone2" (ionBlur)="logValidationErrors()" minlength="17" maxlength="17"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.telephone2">
+            <div class="validation-errors">{{formErrors.telephone2}}</div>
+          </div>
+
+          <ion-item  lines="none" class="item-background-color" *ngIf="email_reminder===1">
+            <ion-input type="email" value="{{email2}}" label="Email Address:" label-placement="floating" fill="none" name="email2" formControlName="email2" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" class="item-background-color" *ngIf="formErrors.email2">
+            <div class="validation-errors">{{formErrors.email2}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-button [disabled]="!registerData.valid" type="submit" size="default" color="success" class="submit-btn" full ><ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon> CONTINUE</ion-button>
+          </ion-item> 
+          
+          <!-- [disabled]="!registerData.valid" -->
+    
+        </ion-list>
+    </form>
+  </div>
+
+  <!-- <ion-button expand="block" fill="outline" size="default" color="success" class="register-btn" block clear [routerLink]="['/login']">Already FedPhoneLIne Account?</ion-button> -->
+
+</ion-content>

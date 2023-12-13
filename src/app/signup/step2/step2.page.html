@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <h2 class="ion-text-center" size="default">FedPhoneLine Number Registration</h2>
+  
+  <div class="login-box">
+
+    <h2 class="ion-text-center">Step 2 of 4 - Enter Inmate’s Info</h2>
+
+    <form [formGroup]="registerData" (ngSubmit)="signup(registerData.value)">
+      <ion-list>
+      
+          <h4>I need my FedPhoneLine Number to Receive:</h4>
+          <ion-item lines="none">
+            <ion-select label="Call Type" label-placement="floating" fill="none" name="call_type" formControlName="call_type" (ionBlur)="logValidationErrors()" (ionChange)="loadSabhi($event)">
+              <ion-select-option value="Collect Call" selected="selected">Collect Call</ion-select-option>
+              <ion-select-option value="Calling Card">Calls from a Calling Card</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.call_type">{{formErrors.call_type}}</div>
+          
+          <h4>Province (where is your freind/family member currently):</h4>          
+          <ion-item lines="none">
+            <ion-select label="Select Province" label-placement="floating" name="province" formControlName="province" (ionChange)="loadIns($event)" (ionBlur)="logValidationErrors()">
+              <ion-select-option *ngFor="let p of provinces" value="{{ p.id }}">{{ p.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.province">{{formErrors.province}}</div>
+          
+          <h4>Which institution is your loved one currently located:</h4>          
+          <ion-item lines="none" ion-wrap>
+            <ion-select  label="Select Institution" label-placement="floating" name="institution" formControlName="institution" (ionChange)="loadCity($event)" (ionBlur)="logValidationErrors()">
+              <ion-select-option *ngFor="let i of insLists" value="{{ i.id }}">{{ i.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.institution">{{formErrors.institution}}</div>
+          
+          <div style="display: none;">
+          <ion-item lines="none">
+            <ion-select label="City" label-placement="floating" name="city" formControlName="city" (ionBlur)="logValidationErrors()">
+              <ion-select-option *ngFor="let c of cityLists" value="{{ c.id }}">{{ c.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.city">{{formErrors.city}}</div>
+          
+          <ion-item lines="none">
+            <ion-input label="Account ID" label-placement="floating" type="text" name="account_id" formControlName="account_id" value="{{account_id}}" readonly="true"></ion-input>
+          </ion-item>
+          </div>
+          
+          <h4>Canadian Phone Number linked to the FedPhoneLine Number</h4>
+          <ion-item lines="none">
+            <ion-input 
+            [maskito]="phoneMask"
+            [maskitoElement]="maskPredicate" 
+            type="tel" label="Phone Number linked to FedPhoneLine" label-placement="floating" placeholder="+1 (416) 222-3333" name="telephone3" formControlName="telephone3" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.telephone3">{{formErrors.telephone3}}</div>
+          
+          <h4>Confirm Phone Number linked to the FedPhoneLine Number</h4>
+          <ion-item lines="none">
+            <ion-input 
+            [maskito]="phoneMask"
+            [maskitoElement]="maskPredicate" 
+            type="tel" label="Confirm Phone Number" label-placement="floating" placeholder="+1 (416) 222-3333" name="confirm_telephone3" formControlName="confirm_telephone3" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="validation-errors" *ngIf="formErrors.confirm_telephone3">{{formErrors.confirm_telephone3}}</div>       
+        
+      </ion-list>
+      
+      <ion-card>
+        <ion-card-content>
+          <strong>*IMPORTANT*:</strong> Your friend/family member will call the FedPhoneLine number and the call will be redirected to the phone number linked to the FedPhoneLine number. Only Canadian numbers will work with FedPhoneLine.
+        </ion-card-content>
+      </ion-card>
+      
+      <ion-row>
+        <ion-col class="signup-col">
+          <ion-button color="medium" type="button" (click)="back()"><ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon> PREVIOUS</ion-button>
+          <ion-button color="success" type="submit" [disabled]="!registerData.valid"><ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon> CONTINUE</ion-button>
+        </ion-col>
+      </ion-row>      
+      
+    </form>
+  </div>
+
+  <!-- <ion-row>
+    <ion-col>
+      <ion-button expand="block" fill="outline" color="primary" type="button" (click)="back()">Back</ion-button>
+    </ion-col>
+  </ion-row> -->
+</ion-content>

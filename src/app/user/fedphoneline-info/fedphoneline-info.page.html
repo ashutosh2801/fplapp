@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+  <div class="dashboard_wra">
+    <h2>FedPhoneLine Information</h2>
+    <ion-card class="gray">
+    <ion-card-content> 
+    <form>
+      <ion-list>        
+        <ion-item lines="none"> 
+          <ion-input label="Telephone Number" label-placement="floating" fill="none" type="text" value="{{model.account_id}}" placeholder="Telephone Number" readonly="true"></ion-input>          
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-input label="Account Type" label-placement="floating" fill="none" type="text" value="{{model.call_type}}"  placeholder="Account Type" readonly="true"></ion-input>    
+        </ion-item>
+        
+        <ion-item lines="none">
+          <ion-input label="Activation Date" label-placement="floating" fill="none" type="text" value="{{model.created}}"  placeholder="Activation Date" readonly="true"></ion-input>    
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-input label="Issue Date" label-placement="floating" fill="none" type="text" value="{{model.created}}" placeholder="Issue Date" readonly="true"></ion-input>    
+        </ion-item>
+      </ion-list>
+    </form> 
+    </ion-card-content>
+    </ion-card> 
+  </div>  
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

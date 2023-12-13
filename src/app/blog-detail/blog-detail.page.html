@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">blog-detail</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="login-content">    
+    <ion-card class="ion-no-padding">
+      <ion-card-header text-wrap><h2>{{item.post_title}}</h2></ion-card-header>
+      <img *ngIf="item.post_src" src="{{item.post_src}}">
+      <ion-card-content>
+        <p [innerHtml]="item.post_content"></p>
+      </ion-card-content>
+    
+      <ion-row>
+        
+        <ion-col align-self-center text-center>
+          <ion-note>
+            {{item.post_date_ago}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+    
+    </ion-card>
+  </div>
+
+</ion-content>

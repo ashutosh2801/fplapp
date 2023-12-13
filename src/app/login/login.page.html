@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Login to My Account</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="top-heading">
+      <ion-title size="large">Login to My Account</ion-title>
+  </div>
+
+  <div class="login-box" color="light">
+    <form [formGroup]="registerData" (ngSubmit)="login(registerData.value)">
+        <ion-list class="item-background-color no-padding">
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="text" label="FedPhoneLine Number or Username" label-placement="floating" fill="none" placeholder="Ex: 16134173333" formControlName="account_id" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" *ngIf="formErrors.account_id">
+            <div class="validation-errors">{{formErrors.account_id}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-input type="password" label="Password" label-placement="floating" fill="none" placeholder="********" formControlName="password" (ionBlur)="logValidationErrors()"></ion-input>
+          </ion-item>
+          <div class="error-box" lines="none" *ngIf="formErrors.password">
+            <div class="validation-errors">{{formErrors.password}}</div>
+          </div>
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-button type="submit" size="default" class="submit-btn" full [disabled]="!registerData.valid"><ion-icon slot="icon-only" name="lock-open"></ion-icon> Login</ion-button>
+          </ion-item>  
+
+          <ion-item lines="none" class="item-background-color">
+            <ion-button size="small" class="submit-btn" full fill="none" [routerLink]="['/forgot-password']">Forgot Password?</ion-button>
+          </ion-item>
+        </ion-list>
+    </form>
+
+    <!-- <div class="ion-padding">
+      <ion-button expand="full" color="primary" (click)="fbLogin()">
+        Login with
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-button>
+    </div> -->
+  </div>
+<div class="ion-text-center">
+  <ion-button size="small" olor="primary" class="register-btn" [routerLink]="['/signup/step1']">Create New Account</ion-button>
+</div>
+</ion-content>

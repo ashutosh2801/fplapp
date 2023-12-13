@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+  <div class="dashboard_wra">
+    <h2>Get a New FedPhoneLine Number</h2>
+    <ion-card class="gray">
+      <ion-card-content class="ion-no-padding">
+        <section class="paynow_wra">
+          <p>If your friend/loved one transfers to a new city they will need a new FedPhoneLine number.</p>
+          <p>When you transfer your FedPhoneLine number, the new number will be the same package as your previous number.</p>
+        </section>
+        <br />
+        <div class="login-box" >
+          <h2>My Loved One is Transferring to a new city. I need a new FedPhoneLine number:</h2>
+          <br />
+          <p>You will not be charged the Activation fee for this new number but you must cancel your old FedPhoneLine number.</p>
+          <form [formGroup]="registerData" (ngSubmit)="do_new_number(registerData.value)">
+      
+            <ion-list>        
+      
+              <ion-item lines="none"> 
+                <ion-input label="Username (btw 6-16 characters)" label-placement="floating" type="text" placeholder="Username" name="username" formControlName="username" (ionChange)="logValidationErrors()"></ion-input>          
+              </ion-item>
+              <div class="validation-errors">Please don't use a Telephone Number as a Username</div>
+              <div class="validation-errors" *ngIf="formErrors.username">{{formErrors.username}}</div>        
+      
+              <ion-item lines="none">
+                <ion-select label="Which Province will your Loved One be Transferring?" label-placement="floating"  name="package_cat" formControlName="loved_province" (ionChange)="loadIns()" (ionBlur)="logValidationErrors()">
+                    <!-- <ion-select-option value="" disabled="true" selected>Select:</ion-select-option>   -->
+                    <ion-select-option *ngFor="let item of provinces" value="{{item.id}}" text-wrap>{{item.name}}</ion-select-option>
+                </ion-select>  
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.loved_province">{{formErrors.loved_province}}</div>
+              
+                <ion-item lines="none"> 
+                  <!-- <ion-label stacked>Which Institution is your loved one transferring?</ion-label> -->
+                  <ion-select label="Which Institution is your loved one transferring?" label-placement="floating" name="loved_institute" formControlName="loved_institute" (ionChange)="loadCity()" (ionBlur)="logValidationErrors()">
+                      <ion-select-option value="" disabled="true" selected>Select:</ion-select-option>  
+                      <ion-select-option *ngFor="let item of insLists" value="{{item.id}}" text-wrap>{{item.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <div class="validation-errors" *ngIf="formErrors.loved_institute">{{formErrors.loved_institute}}</div>
+        
+                <div style="display: none;">
+                  <ion-item lines="none"> 
+                    <ion-select label="City where your loved one is currently living?" label-placement="floating" name="loved_city" formControlName="loved_city" (ionChange)="loadAccount()" (ionBlur)="logValidationErrors()">
+                        <!-- <ion-select-option value="0" disabled="true" selected>Select:</ion-select-option>   -->
+                        <ion-select-option *ngFor="let item of cityLists" value="{{item.id}}" text-wrap>{{item.name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <div class="validation-errors" *ngIf="formErrors.loved_city">{{formErrors.loved_city}}</div>
+                </div>
+
+                <ion-item lines="none"> 
+                    <ion-input label="New FedPhoneLine Number" label-placement="floating" type="text" placeholder="Telephone" value="{{accountid}}" name="accountid" formControlName="accountid" (ionChange)="logValidationErrors()"></ion-input>          
+                </ion-item>
+                <div class="validation-errors" *ngIf="formErrors.accountid">{{formErrors.accountid}}</div>
+      
+              <ion-item lines="none" background="none"> 
+                  <ion-select label="Terminate Current FedPhoneLine Number" label-placement="floating" name="terminate" formControlName="terminate" (ionChange)="logValidationErrors()">
+                    <ion-select-option value="" disabled="true" selected>Select</ion-select-option>
+                    <ion-select-option value="1">Right Away</ion-select-option>
+                    <ion-select-option value="4">3 days from Today</ion-select-option>
+                    <ion-select-option value="8">7 days from Today</ion-select-option>
+                  </ion-select>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.terminate">{{formErrors.terminate}}</div>
+      
+            </ion-list>
+            
+            <ion-row>
+              <ion-col class="signup-col">
+                <ion-button class="submit-btn" size="default" full type="submit" [disabled]="!registerData.valid">Submit</ion-button>
+              </ion-col>
+            </ion-row>
+            
+          </form>
+        </div>
+        
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

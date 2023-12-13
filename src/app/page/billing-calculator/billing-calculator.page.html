@@ -1,0 +1,189 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" [scrollEvents]="true">
+
+  <section class="login_wra">
+    <h2>How Billing Works</h2>
+    <p>FedPhoneLine allows you to receive collect calls on your cellphone or home phone. We also have packages that will help your loved one save money on long distance charges when using calling cards. Here is how billing works:</p>
+    
+    <h3>Account Activation:</h3>
+
+    <section >
+      <div class="login-box">
+        <form [formGroup]="registerData" (ngSubmit)="calculator(registerData.value)">
+        <ion-row>
+          <ion-col>
+            <ion-list>
+
+              <p style="text-align: left; font-weight: 600;padding-left: 15px;">Are you receiving Collect Calls or calls from a calling card?</p>
+              <ion-item lines="none">   
+                <ion-radio-group label="Are you receiving Collect Calls or calls from a calling card?" value="Collect Call" name="call_type" formControlName="call_type" (ionChange)="onClick($event)" >
+                    <ion-radio slot="start" style="padding-left: 15px;" value="Collect Call" aria-label="Collect Call" label-placement="end">Collect Call</ion-radio>
+                    <ion-radio slot="end" style="padding-left: 15px;" value="Calling Card" aria-label="Calling Card" label-placement="end">Calling Card</ion-radio>
+                </ion-radio-group>
+              </ion-item>
+              
+              <ion-item lines="none">
+                <ion-select label="Choose your plan" label-placement="floating" name="package_cat" formControlName="package_cat" (ionChange)="package_cat($event)" (ionBlur)="logValidationErrors()">
+                  <ion-select-option value="">Select</ion-select-option>   
+                  <!-- <ion-select-option [disabled]="true">Collect Call</ion-select-option>                   -->
+                  <ion-select-option *ngIf="_call_type==='Collect Call'" value="Collect Call + IONQC" selected="selected">Ontario and Quebec</ion-select-option>
+                  <ion-select-option *ngIf="_call_type==='Collect Call'" value="Collect Call + OONQC">Outside of Ontario and Quebec</ion-select-option>
+                  <!-- <ion-select-option [disabled]="true">Calling Card</ion-select-option> -->
+                  <ion-select-option *ngIf="_call_type==='Calling Card'" value="Calling Card + IONQC">3000 Minute Plans</ion-select-option>
+                  <ion-select-option *ngIf="_call_type==='Calling Card'" value="Calling Card + OONQC">8000 Minute Plans</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.package_cat">{{formErrors.package_cat}}</div>
+    
+              <ion-item lines="none">
+                <ion-select label="Choose your calling package" label-placement="floating" name="package" formControlName="package"  (ionChange)="package($event)" (ionBlur)="logValidationErrors()">
+                    <ion-select-option value="">Select</ion-select-option>   
+                    <ion-select-option text-wrap *ngFor="let item of packages" value="{{item.id}}">{{item.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.package">{{formErrors.package}}</div>
+              
+              <div *ngIf="topup_div">
+              <ion-item lines="none">
+                <ion-select label="How much will you deposit into your TopUp Account:" label-placement="floating" name="topup" formControlName="topup" (ionBlur)="logValidationErrors()">
+                  <ion-select-option value="">Select</ion-select-option>   
+                  <ion-select-option value="20">$20</ion-select-option>
+                  <ion-select-option value="30">$30</ion-select-option>
+                  <ion-select-option value="50">$50</ion-select-option>
+                  <ion-select-option value="100">$100</ion-select-option>
+                </ion-select>
+              </ion-item>
+               <div small text-wrap>-Your topup account will pay for the Collect Calls that you receive </div> 
+               <div class="validation-errors" *ngIf="formErrors.topup">{{formErrors.topup}}</div>
+              </div>
+    
+              <ion-item lines="none">
+                <ion-select label="Your Province" label-placement="floating"  name="province" formControlName="province" (ionBlur)="logValidationErrors()">
+                  <ion-select-option value="">Select</ion-select-option>   
+                  <ion-select-option value="Alberta">Alberta (5%)</ion-select-option>
+                  <ion-select-option value="British Columbia">British Columbia (12%)</ion-select-option>
+                  <ion-select-option value="Manitoba">Manitoba (13%)</ion-select-option>
+                  <ion-select-option value="New Brunswick">New Brunswick (15%)</ion-select-option>
+                  <ion-select-option value="Newfoundland and Labrador">Newfoundland and Labrador (15%)</ion-select-option>
+                  <ion-select-option value="Northwest Territories">Northwest Territories (5%)</ion-select-option>
+                  <ion-select-option value="Nova Scotia">Nova Scotia (15%)</ion-select-option>
+                  <ion-select-option value="Nunavut">Nunavut (5%)</ion-select-option>
+                  <ion-select-option value="Ontario">Ontario (13%)</ion-select-option>
+                  <ion-select-option value="Prince Edward Island">Prince Edward Island (15%)</ion-select-option>
+                  <ion-select-option value="Québec">Québec (14.975%)</ion-select-option>
+                  <ion-select-option value="Saskatchewan">Saskatchewan (11%)</ion-select-option>
+                  <ion-select-option value="Yukon Territory">Yukon Territory (5%)</ion-select-option>
+                </ion-select>
+              </ion-item>            
+              <!-- <div small>-The date you sign up for a FedPhoneLine number</div> -->
+              <div class="validation-errors" *ngIf="formErrors.province">{{formErrors.province}}</div>
+    
+              <!-- <ion-item lines="none">
+                <ion-input
+                  value="{{ date | date: 'YYYY-MM-dd' }}"
+                  id="date1"
+                  class="ion-text-center"
+                ></ion-input>
+                <ion-popover trigger="date1" size="cover">
+                  <ng-template>
+                    <ion-datetime
+                      [min]="localDate"
+                      presentation="date"
+                      name="province" 
+                      formControlName="province"
+                      format="YYYY-MM-dd" 
+                      (ionChange)="setDate($event)"
+                    ></ion-datetime>
+                  </ng-template>
+                </ion-popover>
+              </ion-item> -->
+              
+              <ion-item lines="none">
+                <ion-datetime min="{{ min | date: 'yyyy-MM-dd' }}" format="YYYY-MM-DD" (ionChange)="setDate($event)" presentation="date"></ion-datetime>
+    
+                <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button>
+    
+                <ion-modal trigger="datetime" [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime displayFormat="YYYY-MM-D" (ionChange)="setDate($event)" presentation="date" [min]="localDate" id="datetime" ></ion-datetime>
+                  </ng-template>
+                </ion-modal> -->
+                  <!-- <ion-datetime presentation="date" value="2022-04-21T00:00:00" [min]="localDate"></ion-datetime> -->
+                  <!-- <span ion-datepicker (ionChanged)="setDate($event)" [(value)]="date" [min]="localDate" [okText]="Confirm" clear class="ScheduleDate"> -->
+                  <!-- <span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span> -->
+                <!-- </span> -->
+              </ion-item>
+              <div class="validation-errors" *ngIf="formErrors.datepicker">{{formErrors.datepicker}}</div>
+              
+              <div style="display:none;" >
+                <ion-input type="text" formControlName="price" value="{{response.price}}"></ion-input>
+                <ion-input type="text" formControlName="connect_fee" value="{{response.connect_fee}}"></ion-input>
+                <ion-input type="text" formControlName="minute_fee" value="{{response.minute_fee}}"></ion-input>
+                <ion-input type="text" formControlName="activation_fee" value="{{response.activation_fee}}"></ion-input>
+                <ion-input type="text" formControlName="fee" value="{{response.activation_fee}}"></ion-input>
+              </div>
+              <h3>ONE-TIME ACTIVATION FEE</h3>
+              <ion-item lines="none">
+                <ion-input readonly="true" value="${{response.activation_fee}}" type="text" placeholder="Administration Activation Fee + tax" formControlName="actfeetot" (ionBlur)="logValidationErrors()"></ion-input>
+              </ion-item>
+    
+              <ion-button [ngClass]="myBool" full type="submit">Calculate</ion-button>
+            <!-- *ngIf="tot" [disabled]="!registerData.valid" -->
+    <div  id="yourTodayItemId">
+              <div *ngIf="tot">
+                <h3>SIGN UP FEE:</h3>
+                <p>Activation Fee + Prorated Monthly Fee + Topup Amount + Provincial Tax = Total</p>
+                <p>${{fee | number:'1.2-2'}} + ${{x1 | number:'2.2-2'}} + ${{topup | number:'1.2-2'}} + ${{price_per | number:'1.2-2'}} = <span class="f25">${{tot | number:'2.2-2'}}</span></p>
+              </div>
+              <!-- *ngIf="tot2" -->
+              <div *ngIf="tot2">
+                  <h3>MONTHLY FEE:</h3>
+                  <p>FedPhoneLine Monthly Calling Package + Provincial Tax = Total</p>
+                  <p>${{price | number:'2.2-2'}} + ${{price_per2 | number:'1.2-2'}} = <span class="f25">${{tot2 | number:'2.2-2'}}</span></p>
+                </div>
+    </div>        
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        </form>
+      </div>
+      </section> 
+    
+    <p>Accounts are prepaid for the month, when you sign up you will pay:<br /><br />
+      Activation Fee<br />
+      +<br />
+      Pro-Rated Monthly Fee<br />
+      +<br />
+      Top Up Amount<br />
+      +<br />
+      Provincial Tax<br />
+      =<br />
+      TOTAL</p>
+
+    <p>This amount will be taken off your credit card immediately after signup. Your FedPhoneLine number will begin working right away.</p>
+
+    <h3>Monthly Bill:</h3>
+    <p>On the First of the next month your Credit/Debit Card will be charged:</p>
+    <p color="secondary">FedPhoneLine Monthly Calling Package + Provincial Tax = Total</p>
+    
+    <h3>Your TopUp Account: (for collect call subscribers only):</h3>
+    <p>You are charged when you receive a collect call from your loved one that lasts over 45 seconds. These charges are withdrawn from your top up account.</p>
+    <p>If you have purchased the $39.99/month plan, each call will cost you either $1.50 or $2.00 depending on your plan</p>
+    <p>If you have purchased the $6.99/month Pay-As-You-Go plan, each call will cost you either $1.50 or $2.00 PLUS $0.07/min.</p>
+    
+  </section>
+
+   
+  <section class="login_wra">
+    <p><b>NOTE:</b> TopUp Accounts must be kept above $6.00, if your TopUp account falls below $6.00 it will be blocked and you will have to add funds TopUp your Account to reactivate your FedPhoneLine number. When you sign up for a FedPhoneLine number you will be provided a username and password where you can login and add funds to your TopUp account as well as edit account information, change forwarding numbers (if applicable), change/terminate FedPhoneLine numbers and add funds to your TopUp Account Collect</p>
+    <p>FedPhoneLine does not accept Prepaid Gift Cards (or prepaid credit cards from Gas Stations, Walmart, etc.). Prepaid Credit Cards from Banks or Money Mart are permitted.</p>
+  </section>
+</ion-content>

@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" inset>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">contact_us</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header><strong>Contact Address</strong></ion-card-header>
+    <ion-card-content>
+      <p class="red-txt">220 Main St. W.,</p>
+      <p class="red-txt">Hamilton, ON,</p>
+      <p class="red-txt">L8P 1J3</p>
+      <strong class="block">Legal Name:</strong>&nbsp;FedPhoneLine (8776440 Canada Inc.)<br />
+      <strong class="block">Toll Free:</strong> 1-844-320-9647<br />
+      <strong class="block">Hours of Operation:</strong>  8AM - 7PM, 7 days a week<br />
+      <strong class="block">Email Address:</strong> support@fedphoneline.com<br />
+      FedPhoneLine is a leading telecommunications service that allows to <a href="https://fedphoneline.com/" target="_blank">Receive Jail Calls On A Cell Phone</a> of your loved ones! FEEL FREE TO CALL US TOLL FREE WITH ANY QUESTIONS: 1-844-320-9647
+    </ion-card-content>
+  </ion-card>
+  
+
+<div class="login-box">
+<form (ngSubmit)="do_contact(registerData.value)" [formGroup]="registerData">
+  <ion-row>
+    <ion-col>
+        <ion-list>
+        
+          <section class="login_wra">
+            <h2>Get in Touch</h2>
+          </section>
+        <!-- <ion-item lines="none">
+          <ion-label stacked>Filter</ion-label>
+          <ion-select label="Select a Category" label-placement="floating" name="type" formControlName="type" (ionChange)="logValidationErrors()">
+              <ion-select-option value="Select a Category" selected="true" disabled="true">Select a Category</ion-select-option>
+              <ion-select-option value="In Need of Support">In Need of Support</ion-select-option>
+              <ion-select-option value="Cancellation Request">Cancellation Request</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="validation-errors" *ngIf="formErrors.type">{{formErrors.type}}</div> -->
+        
+        <ion-item lines="none">
+          <ion-input label="Full name" label-placement="floating" type="text" placeholder="Full name" name="name" formControlName="name" (ionBlur)="logValidationErrors()"></ion-input>
+        </ion-item>
+        <div class="validation-errors" *ngIf="formErrors.name">{{formErrors.name}}</div>
+        
+        <ion-item lines="none">
+          <ion-input label="Email Address" label-placement="floating" type="email" placeholder="Email Address" name="email" formControlName="email" (ionBlur)="logValidationErrors()"></ion-input>
+        </ion-item>
+        <div class="validation-errors" *ngIf="formErrors.email">{{formErrors.email}}</div>
+        
+        <ion-item lines="none">
+          <ion-input label="Phone number" label-placement="floating" type="tel" placeholder="Phone number" name="phone" placeholder="+1 (xxx)-xxx-xxxx" formControlName="phone" (ionBlur)="logValidationErrors()" minlength="17" maxlength="17" [maskito]="phoneMask" [maskitoElement]="maskPredicate"></ion-input>
+        </ion-item>
+        <div class="validation-errors" *ngIf="formErrors.phone">{{formErrors.phone}}</div>
+        
+        <ion-item text-wrap  lines="none">
+          <ion-textarea label="Write message here:" labelPlacement="floating" placeholder="Write message here:" name="message" formControlName="message" (ionBlur)="logValidationErrors()"></ion-textarea>
+        </ion-item>
+        <div class="validation-errors" *ngIf="formErrors.message">{{formErrors.message}}</div>
+
+        <div class="ion-padding">
+          <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!registerData.valid">Submit</ion-button>
+        </div>
+        
+      </ion-list>
+    </ion-col>
+  </ion-row>      
+</form>
+</div>
+
+</ion-content>

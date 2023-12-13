@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <h2 class="ion-text-center" size="default">FedPhoneLine Number Registration</h2>
+  
+  <div class="login-box">
+
+    <h2 class="ion-text-center">Step 3 of 4 - Choose Calling Plan</h2>
+
+    <div class="ion-no-padding">
+
+      <swiper-container [navigation]="true">
+        <swiper-slide *ngFor="let slide of slides">
+          <div class="price_wra">
+            <div class="price_wra2">
+              <div class="title_box">
+                <span>Monthly Fee (paid on the 1st of each month)</span>
+                <span>${{slide.price}} + TAX</span>
+                <!-- <span>{{slide.minute_fee}} Cents/Minute</span> -->
+              </div>
+              <div class="price_box_title_txt">
+                  <span>Cost per call ({{slide.title}} Plan)</span><br />
+                  <span style="font-size: 18px;">${{ slide.connect_fee | number : '1.2-2'}} <span *ngIf="slide.minute_fee>0">+ ${{ slide.minute_fee | number : '1.2-2'}}/minute</span> </span>
+                  <!-- {{slide.sub_title}} -->
+              </div>
+              
+              <ion-button size="small" type="button" (click)="signup(slide.id)">SELECT</ion-button>
+              
+              <div class="price_box_txt">
+                <strong>Features</strong><br>
+                <div [innerHTML]="slide.description"></div>
+              </div>
+            </div>
+          </div>        
+        </swiper-slide>
+      </swiper-container>
+  
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button color="medium" type="button" (click)="back()"><ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon> PREVIOUS</ion-button>
+          <ion-button color="success" type="submit"><ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon> CONTINUE</ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </div>
+  </div>
+</ion-content>

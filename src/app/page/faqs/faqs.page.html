@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">faqs</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <section class="login_wra">
+    <h2>Frequently Asked Questions</h2>
+  </section>
+
+  <ion-accordion-group>
+    <ion-accordion value="first{{item.id}}" *ngFor="let item of items" text-wrap>
+      <ion-item slot="header" color="light" class="ion-wrap">
+        <ion-label class="ion-wrap">{{item.question}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content"><p [innerHtml]="item.answer"></p></div>
+    </ion-accordion>
+  </ion-accordion-group>  
+  
+  
+</ion-content>

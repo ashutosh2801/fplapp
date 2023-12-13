@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+  <div class="dashboard_wra">
+    <h2>Call Time</h2>
+    
+    
+        <ngx-datatable class="material fullscreen"
+        [ngClass]="tablestyle" 
+    [rows]="data" 
+    [rowHeight]="50"
+          [headerHeight]="50"
+    [scrollbarH]="true" 
+    [reorderable]="false">
+  <ngx-datatable-column>
+    <ng-template ngx-datatable-header-template>
+      <span>Account ID</span>
+    </ng-template>        
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{row.account_id}}
+    </ng-template>
+  </ngx-datatable-column>    
+  <ngx-datatable-column name="time">
+      <ng-template ngx-datatable-header-template>
+        <span>Connected time</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.time}}
+      </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Caller"></ngx-datatable-column>
+  <ngx-datatable-column name="Called"></ngx-datatable-column>
+  <ngx-datatable-column name="Ringtime"></ngx-datatable-column>
+  <ngx-datatable-column name="Duration"></ngx-datatable-column>
+  <ngx-datatable-column name="Reason"></ngx-datatable-column>
+</ngx-datatable>
+        
+  </div>
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>

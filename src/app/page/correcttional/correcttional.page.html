@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+    <section class="login_wra">
+        <h2>Correctional Centers</h2>
+      </section>
+    <ion-searchbar placeholder="Correctional Center, City, Contact No...." (ionInput)="getItems($event)" (ionClear)="getItems($event)"></ion-searchbar>
+    <ion-card *ngFor="let item of data">
+      <ion-card-header><h2 [innerHtml]="item.title"></h2></ion-card-header>
+      <ion-card-content padding>
+        <p><b>{{item.title}}</b></p>
+        <p *ngFor="let address of item.address">{{ address }}</p>
+        <p><b>{{ item.phone }}</b></p>
+        <ion-button small expand="full" fill="clear" [routerLink]="['/page/', 'correcttional', item.slug]" type="button" color="secondary">View more</ion-button>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

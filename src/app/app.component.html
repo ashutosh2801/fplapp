@@ -1,27 +1,70 @@
-<ion-app>
+<ion-app  class="ion-no-padding">
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+        <ion-list id="inbox-list1" *ngIf="user_id===null">
+          <h2 class="menu-close ion-no-margin">Menu 
+            <ion-menu-toggle slot="end">
+              <ion-button size="small" color="danger">Close <ion-icon name="close"></ion-icon></ion-button>
+            </ion-menu-toggle>
+          </h2>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="forward" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+        <ion-list id="inbox-list2" *ngIf="user_id!==null">
+          <div class="bg-blue">
+            <h2 class="menu-close ion-no-margin" *ngIf="responseData.fullname">{{responseData.fullname}}
+              <ion-menu-toggle slot="end">
+                <ion-button size="small" color="danger">Close <ion-icon name="close"></ion-icon></ion-button>
+              </ion-menu-toggle>
+            </h2>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
+            <h2 class="text-white bold underline">{{responseData.account_id}}</h2>
+            <h4 class="text-white bold underline">FedPhoneLine Package:</h4>
+            <div class="text-white">{{responseData.package_title}}</div>
+          
+            <ion-row no-padding class="other-data">
+              <ion-col col-6 class="column">
+                <ion-menu-toggle>
+                  <ion-button icon-left small full color="secondary" menuClose (click)="home()">
+                    <ion-icon name="home"></ion-icon>
+                    Dashboard
+                  </ion-button>
+                </ion-menu-toggle>
+              </ion-col>
+              <ion-col col-6 class="column">
+                <ion-menu-toggle>
+                  <ion-button icon-left small full color="danger" menuClose (click)="logout()">
+                    <ion-icon name="log-out"></ion-icon>
+                    Logout
+                  </ion-button>
+                </ion-menu-toggle>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <ion-accordion-group class="ion-content-accordian" value="">
+            <ion-accordion value="test_{{i}}" *ngFor="let p of children; let i = index">
+              <ion-item slot="header" color="primary">
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <h3 *ngIf="p.sub_title">{{ p.sub_title }}</h3>
+                <ion-menu-toggle>
+                  <ion-button *ngFor="let p1 of p.submenu" class="ion-text-wrap submit-btn3" expand="block" [routerLink]="[p1.url]">{{p1.title}}</ion-button>
+                </ion-menu-toggle>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
         </ion-list>
+
+        
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

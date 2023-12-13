@@ -1,0 +1,151 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" inset="true">
+  
+
+  <div class="login-content">
+
+    <section class="login_wra">
+      <h3>FedPhoneLine Number: {{response.account_id}}</h3>
+      <h2>{{response.fullname}}</h2>
+      <p>{{response.package_title}}</p>
+    </section>
+    <section class="text" *ngIf="response.call_type==='Calling Card' && response.text">{{response.text}}</section>
+    <section class="text2" *ngIf="response.call_type==='Calling Card' && response.next_month">Next billing date is: <b>{{response.next_month}}</b></section>
+
+    <ion-card class="box-blue" *ngIf="response.call_type==='Collect Call' && response.my_balance<=0" > 
+      <ion-card-header>
+          <!--<ion-icon name="logo-usd" item-start large></ion-icon>--> Top Up Account Balance
+      </ion-card-header>
+      <ion-card-content text-wrap class="my-balance">
+          <h2><ion-icon name="logo-usd" item-start large></ion-icon> <span>{{response.topup_balance}}</span></h2>
+          <ion-button shape="round" size="large" color="success" class="submit-btn2" type="button" [routerLink]="['/user/topup']">TOP UP</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="{{response.class_balance}} card card-md" >
+      <ion-card-header>
+          <!--<ion-icon name="football" item-start large></ion-icon>--> Balance Owing
+      </ion-card-header>
+      <ion-card-content text-wrap class="my-balance">
+          <h2><ion-icon name="logo-usd" item-start large></ion-icon> <span>{{response.my_balance}}</span></h2>
+          <ion-button shape="round" size="large" color="success" class="submit-btn" type="button" [routerLink]="['/user/paynow']">{{response.label}}</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="box-blue" *ngIf="response.call_type==='Calling Card'">
+      <ion-card-header>
+          <!--<ion-icon name="time" item-start large></ion-icon>--> Minutes Used
+      </ion-card-header>
+      <ion-card-content text-wrap class="my-balance">
+          <h2><span>{{response.minuts}}</span></h2>
+          <ion-button class="submit-btn2" expand="block" full type="button" [routerLink]="['/user/upgrade']">Upgrade Plan</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-accordion-group value="first0">
+      <ion-accordion value="first{{i}}" *ngFor="let p of children; let i = index">
+        <ion-item slot="header" color="primary">
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3 *ngIf="p.sub_title">{{ p.sub_title }}</h3>
+          <ion-button *ngFor="let p1 of p.submenu" class="ion-text-wrap submit-btn3" expand="block" [routerLink]="[p1.url]">{{p1.title}}</ion-button>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+<!--     
+
+    <ion-accordion-group [value]="['first']">
+
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>My Profile</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3>Edit Contact/Login Information and message notifications</h3>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['/user/contact-info']">Edit Contact Info</ion-button>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['/user/fedphoneline-info']">View FedPhoneLine Info</ion-button>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['/user/change-password']">Change Password</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Account Management</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3>Switch Account Package/Terminate Account</h3>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['/user/upgrade']">Switch Call Package</ion-button>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['/user/terminate']">Terminate Account</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="first1">
+        <ion-item slot="header" color="light">
+          <ion-label>Call Forwarding</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3>Change Forwarding Number</h3>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['/user/call-forwarding']">Edit forwarding numbers</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="third" *ngIf="response.status!=='2' && response.status!=='4'  && response.my_balance<=0">
+        <ion-item slot="header" color="light">
+          <ion-label>Transfer FedPhoneLine Number</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button text-wrap class="ion-text-wrap submit-btn4" expand="block" full type="button" [routerLink]="['user/new-number']">Click here if you need a New FedPhoneLine Number (Loved One Transferring or Need an Additional Number)</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="forth">
+        <ion-item slot="header" color="light">
+          <ion-label>Payment Information</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3>Update Payment Information</h3>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['user/auto-recharge']">Setup Auto Pay</ion-button>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['user/credit-card']">Update Credit Card info</ion-button>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['user/order-history']">Payment History</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="fifth">
+        <ion-item slot="header" color="light">
+          <ion-label>Billing Information</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3>Check Referral Discounts </h3>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['user/order-history']">Order History</ion-button>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['user/referral']">Referral Code</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="sixth">
+        <ion-item slot="header" color="light">
+          <ion-label>Call Log</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <h3>View your calls (call duration is in seconds) </h3>
+          <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['user/call-time']">View call times</ion-button>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+
+    
+    
+    <accordion title="Billing Information">
+        <h3>Check Referral Discounts </h3>
+        <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['referralPage']">Referral Code</ion-button>
+    </accordion>
+    <accordion title="Call Log">
+        <h3>View your calls (call duration is in seconds) </h3>
+        <ion-button class="submit-btn3" expand="block" full type="button" [routerLink]="['callTimePage']">View call times</ion-button>
+    </accordion> -->
+  </div>
+
+</ion-content>

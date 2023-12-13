@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="dashboard_wra">
+    <h2>FedPhoneLine Auto Recharge</h2>
+    <ion-card class="gray ion-no-margin">
+      <ion-card-content> 
+        <div class="login-box">
+          <section class="login_wra">
+            <h3>Setup Preauthorized Payments</h3>
+            <p>Autopay is Visa, MasterCard, Visa Debit and Mastercard Debit only</p>
+          </section>
+      
+          <section class="login_wra">
+              <h5>Your account address on file:</h5>
+              <p style="font-size:16px;">{{response.name}}</p>
+              <p style="font-size:16px;">{{response.address}}</p>
+              <p style="font-size:16px;">{{response.address2}}</p>
+              <p style="font-size:16px;">{{response.zipcode}}</p>
+              <ion-button color="primary ion-margin" size="default" expand="block" type="button" (click)="edit_account()">Edit Address Details</ion-button>
+            </section>
+        </div>
+        
+        <form [formGroup]="registerData" (ngSubmit)="do_auto_recharge(registerData.value)">
+          
+          <div class="login-box ion-text-wrap">
+              <section class="login_wra">
+                <h3>Automatic Monthly Bill Recharge </h3>
+                <p>FedPhoneLine will charge your card the monthly fee on the 1st day of each month.</p>
+              </section>
+      
+              <ion-item text-wrap class="ion-item">
+                <ion-checkbox labelPlacement="end" name="balance_term" formControlName="balance_term">  
+                <div class="ion-text-wrap">I provide consent to FedPhoneLine to save this card for future monthly payments and to automatically charge this card 1st day of each month.</div></ion-checkbox>
+              </ion-item>
+          </div>
+          <br />
+          <div class="login-box" *ngIf="response.call_type==='Collect Call'">
+      
+              <section class="login_wra">
+                <h3>FedPhoneLine will automatically top up your account when your top up balance drops below $6</h3>
+              </section>
+      
+              <ion-item text-wrap class="ion-item">
+                <ion-checkbox labelPlacement="end" (ionChange)="loadTopup()" name="topup_term" formControlName="topup_term"> 
+                <div class="ion-text-wrap">I provide consent to FedPhoneLine to save this card for future payments and to automatically charge this card for top up payments when the top up balance falls below $6.00.</div></ion-checkbox> 
+              </ion-item>
+              <br />
+
+              <ion-item text-wrap class="ion-item" lines="none">
+                <ion-select label="Auto Top Up Amount" name="topup_amount" formControlName="topup_amount" value="20" placeholder="Select Top Up">
+                  <ion-select-option *ngFor="let item of response.topup" value="{{item.amount}}">${{item.amount}} + Tax</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <!-- <ion-item text-wrap class="ion-item">
+                <ion-radio-group class="ion-text-wrap" *ngFor="let item of response.topup" value="20">
+                  <ion-radio labelPlacement="end" class="ion-text-wrap" value="{{item.amount}}">${{item.amount}} + Tax</ion-radio>
+                </ion-radio-group>
+              </ion-item> -->
+              <!-- <ion-row radio-group name="topup_amount" formControlName="topup_amount">
+                <ion-col col-6  *ngFor="let item of response.topup">
+                  <ion-item class="response-radio">
+                    <ion-radio value="{{item.amount}}"></ion-radio>
+                    <ion-label>${{item.amount}} + tax</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row> -->
+      
+          </div>
+      
+            <ion-row>
+              <ion-col>
+                <ion-button [disabled]="!registerData.valid" color="primary ion-margin" expand="block" full type="submit">Update</ion-button>
+              </ion-col>
+            </ion-row>
+        </form> 
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
+
+<ion-card class="bottom" slot="bottom">
+  <ion-button size="small" [routerLink]="['/user/dashboard']">
+    <ion-icon aria-hidden="true" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-button>
+
+  <!-- <ion-button size="small" [routerLink]="['/user/paynow']">
+    <ion-icon aria-hidden="true" name="card-outline"></ion-icon>
+    <ion-label>Paynow</ion-label>
+  </ion-button> -->
+
+  <ion-button size="small" [routerLink]="['/user/topup']">
+    <ion-icon aria-hidden="true" name="color-fill-outline"></ion-icon>
+    <ion-label>Top Up</ion-label>
+  </ion-button>
+</ion-card>
+

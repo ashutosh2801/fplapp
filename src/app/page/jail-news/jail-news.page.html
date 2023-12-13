@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <img src="{{logo}}" /> 
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">jail_news</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <section class="login_wra">
+    <h2>Latest News</h2>
+  </section>
+  
+  <ion-card *ngFor="let item of items">
+
+    <ion-card-header text-wrap><h2 [innerHtml]="item.TITLE"></h2></ion-card-header>
+
+    <ion-item><p>{{item.PUBDATE}}</p> </ion-item>
+  
+    <ion-card-content>
+      <p [innerHtml]="item.TEASER"></p>        
+    </ion-card-content>
+    
+  
+  </ion-card>
+</ion-content>
